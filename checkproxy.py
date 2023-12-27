@@ -18,7 +18,7 @@ def check_proxy():
     while not q.empty():
         proxy = q.get()
         try:
-            r = requests.get("http://ipinfo.io/json",proxies={"http":proxy,"https":proxy})
+            r = requests.get("https://api.ipify.org?format=json",proxies={"http":proxy,"https":proxy})
         except:
             continue
         if(r.status_code == 200):
