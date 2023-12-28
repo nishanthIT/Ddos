@@ -55,7 +55,7 @@ with open("ValidProxy.txt","r") as f:
 def send_req(url):
   print("Dossing.......")
 
-  for _ in range(10):
+  while True:
         int = random.randint(0,len(valied_proxy) -1)
         try:
             # print(proxy)
